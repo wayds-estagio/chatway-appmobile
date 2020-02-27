@@ -1,0 +1,31 @@
+import 'package:chatway/app/models/message.model.dart';
+import 'package:mobx/mobx.dart';
+part 'chat.store.g.dart';
+
+class ChatStore = _ChatStoreBase with _$ChatStore;
+
+abstract class _ChatStoreBase with Store {
+  @observable
+  ObservableList<Message> messages = ObservableList<Message>().asObservable();
+
+  @action
+  addMessage(Message value) {
+    //messages.insert(0, value);
+    messages.add(value);
+    // listitems.sort((a, b) {
+    //   return a.title.toLowerCase().compareTo(b.title.toLowerCase());
+    // });
+  }
+
+  @action
+  removeItem(Message value) {
+    messages.removeWhere((item) => item == value);
+  }
+}
+
+// Message(
+//     content: "wtf",
+//     timestamp: DateTime.now(),
+//     isYou: true,
+//     isRead: false,
+//     isSent: false),
