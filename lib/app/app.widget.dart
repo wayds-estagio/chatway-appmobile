@@ -1,10 +1,10 @@
-import 'package:chatway/app/pages/home/home.controller.dart';
 import 'package:chatway/app/pages/home/home.page.dart';
 import 'package:chatway/app/utils/route_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'pages/chat/chat.controller.dart';
+import 'controllers/chat.controller.dart';
+import 'controllers/home.controller.dart';
 import 'themes/light/light.theme.dart';
 
 class AppWidget extends StatelessWidget {

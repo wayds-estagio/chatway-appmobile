@@ -1,9 +1,9 @@
+import 'package:chatway/app/apis/home.api.dart';
 import 'package:chatway/app/models/help.model.dart';
-import 'package:chatway/app/pages/home/home.store.dart';
+import 'package:chatway/app/stores/home.store.dart';
 import 'package:chatway/app/utils/api_response.dart';
 import 'package:mobx/mobx.dart';
 
-import 'home.api.dart';
 part 'home.controller.g.dart';
 
 class HomeController = _HomeControllerBase with _$HomeController;
@@ -34,6 +34,7 @@ abstract class _HomeControllerBase with Store {
     list.add("Ajuda 1");
     list.add("Ajuda 2");
     list.add("Ajuda 3");
+    list.add("Outro");
 
     var store = HomeStore();
 

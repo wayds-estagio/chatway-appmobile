@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'chat_server.model.dart';
+part of 'chat.model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-ChatServer _$ChatServerFromJson(Map<String, dynamic> json) {
-  return ChatServer(
+Chat _$ChatFromJson(Map<String, dynamic> json) {
+  return Chat(
     id: json['id'] as String,
     atendente: json['atendente'] as String,
     motorista: json['motorista'] as String,
@@ -19,8 +19,7 @@ ChatServer _$ChatServerFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$ChatServerToJson(ChatServer instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$ChatToJson(Chat instance) => <String, dynamic>{
       'id': instance.id,
       'atendente': instance.atendente,
       'motorista': instance.motorista,

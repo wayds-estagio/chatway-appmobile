@@ -1,7 +1,8 @@
+import 'package:chatway/app/controllers/chat.controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
-import 'chat.controller.dart';
 import 'widgets/app_bar_chat.widget.dart';
 import 'widgets/info_message.widget.dart';
 import 'widgets/input_message.widget.dart';
@@ -23,13 +24,17 @@ class ChatPage extends StatelessWidget {
   }
 
   Widget chatPage(BuildContext context) {
+    final controller = Provider.of<ChatController>(context);
+
     return Column(
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
-        InfoMessage(
-          text: "Em breve você será atendido",
-          visible: true,
-        ),
+        Observer(builder: (_) {
+          return InfoMessage(
+            text: "Em breve você será atendido",
+            visible: !controller.isAttended,
+          );
+        }),
         ListMessage(),
         InputTextMessage(),
       ],

@@ -87,20 +87,46 @@ mixin _$ChatController on _ChatControllerBase, Store {
     }, _$inputMessageAtom, name: '${_$inputMessageAtom.name}_set');
   }
 
+  final _$isAttendedAtom = Atom(name: '_ChatControllerBase.isAttended');
+
+  @override
+  bool get isAttended {
+    _$isAttendedAtom.context.enforceReadPolicy(_$isAttendedAtom);
+    _$isAttendedAtom.reportObserved();
+    return super.isAttended;
+  }
+
+  @override
+  set isAttended(bool value) {
+    _$isAttendedAtom.context.conditionallyRunInAction(() {
+      super.isAttended = value;
+      _$isAttendedAtom.reportChanged();
+    }, _$isAttendedAtom, name: '${_$isAttendedAtom.name}_set');
+  }
+
+  final _$chatAtom = Atom(name: '_ChatControllerBase.chat');
+
+  @override
+  Chat get chat {
+    _$chatAtom.context.enforceReadPolicy(_$chatAtom);
+    _$chatAtom.reportObserved();
+    return super.chat;
+  }
+
+  @override
+  set chat(Chat value) {
+    _$chatAtom.context.conditionallyRunInAction(() {
+      super.chat = value;
+      _$chatAtom.reportChanged();
+    }, _$chatAtom, name: '${_$chatAtom.name}_set');
+  }
+
   final _$setHelpMessageAsyncAction = AsyncAction('setHelpMessage');
 
   @override
   Future setHelpMessage(String helpMessage) {
     return _$setHelpMessageAsyncAction
         .run(() => super.setHelpMessage(helpMessage));
-  }
-
-  final _$sendHelpMessageAsyncAction = AsyncAction('sendHelpMessage');
-
-  @override
-  Future sendHelpMessage(String textHelpMessage) {
-    return _$sendHelpMessageAsyncAction
-        .run(() => super.sendHelpMessage(textHelpMessage));
   }
 
   final _$fetchAsyncAction = AsyncAction('fetch');
@@ -121,10 +147,20 @@ mixin _$ChatController on _ChatControllerBase, Store {
       ActionController(name: '_ChatControllerBase');
 
   @override
-  dynamic sendMessagem(String textMessage) {
+  dynamic sendHelpMessage(String textHelpMessage) {
     final _$actionInfo = _$_ChatControllerBaseActionController.startAction();
     try {
-      return super.sendMessagem(textMessage);
+      return super.sendHelpMessage(textHelpMessage);
+    } finally {
+      _$_ChatControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic sendMessage(String textMessage) {
+    final _$actionInfo = _$_ChatControllerBaseActionController.startAction();
+    try {
+      return super.sendMessage(textMessage);
     } finally {
       _$_ChatControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -135,6 +171,16 @@ mixin _$ChatController on _ChatControllerBase, Store {
     final _$actionInfo = _$_ChatControllerBaseActionController.startAction();
     try {
       return super.clearInputMessage();
+    } finally {
+      _$_ChatControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setIsAttended(bool value) {
+    final _$actionInfo = _$_ChatControllerBaseActionController.startAction();
+    try {
+      return super.setIsAttended(value);
     } finally {
       _$_ChatControllerBaseActionController.endAction(_$actionInfo);
     }

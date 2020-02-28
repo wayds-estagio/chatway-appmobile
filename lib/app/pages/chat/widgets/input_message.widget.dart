@@ -1,4 +1,4 @@
-import 'package:chatway/app/pages/chat/chat.controller.dart';
+import 'package:chatway/app/controllers/chat.controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
@@ -77,7 +77,7 @@ class InputTextMessage extends StatelessWidget {
                     : Icon(Icons.send),
                 onPressed: () {
                   controller
-                      .sendMessagem(controller.inputMessageController.text);
+                      .sendMessage(controller.inputMessageController.text);
                 },
               ),
             );

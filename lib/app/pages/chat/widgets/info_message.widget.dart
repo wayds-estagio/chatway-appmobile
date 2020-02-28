@@ -10,7 +10,7 @@ class InfoMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      duration: Duration(milliseconds: 200),
+      duration: Duration(milliseconds: 800),
       color: Theme.of(context).accentColor,
       height: visible ? 45 : 0,
       width: double.infinity,
