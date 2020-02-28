@@ -53,13 +53,13 @@ abstract class _ChatControllerBase with Store {
   @action
   setHelpMessage(String helpMessage) async {
     await fetch();
-    textHelpMessage = helpMessage;
+    sendHelpMessage(helpMessage);
   }
 
   @action
   sendHelpMessage(String textHelpMessage) async {
     if (textHelpMessage != "Outro") {
-      //sendMessagem(textHelpMessage);
+      sendMessagem(textHelpMessage);
     }
   }
 
@@ -67,16 +67,15 @@ abstract class _ChatControllerBase with Store {
   sendMessagem(String textMessage) {
     final message = Message(
       content: textMessage,
-      isYou: true,
-      timestamp: DateTime.now(),
-      isRead: false,
-      isSent: false,
+      sender: user.id,
+      receiver: chatServer.id,
+      time: DateTime.now(),
     );
+
     print("> sendMessage: ${message.toString()}");
-    print("> sendMessagem: ${chatServer.toString()}");
 
     store.value.addMessage(message);
-    connection.invoke("Send", args: [textMessage, chatServer.id]);
+    connection.invoke("Send", args: [message, chatServer.id]);
 
     clearInputMessage();
   }
@@ -114,19 +113,15 @@ abstract class _ChatControllerBase with Store {
 
       final receiveMessage = Message(
         content: "> ReceiveDebug ${data.toString()}",
-        timestamp: DateTime.now(),
+        time: DateTime.now(),
       );
 
       store.value.addMessage(receiveMessage);
     });
 
     connection.on("Receive", (data) {
-      print("> Receive ${data.toString()}");
-
-      final receiveMessage = Message(
-        content: "${data.toString()}",
-        timestamp: DateTime.now(),
-      );
+      print("> Receive ${data[0]}");
+      final receiveMessage = Message.fromJson(data[0]);
 
       store.value.addMessage(receiveMessage);
     });

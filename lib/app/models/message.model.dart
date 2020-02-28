@@ -6,16 +6,18 @@ part 'message.model.g.dart';
 class Message {
   String id;
   String content;
-  DateTime timestamp;
-  bool isYou;
+  String sender;
+  String receiver;
+  DateTime time;
   bool isRead;
   bool isSent;
 
   Message({
     this.id,
     this.content,
-    this.timestamp,
-    this.isYou = false,
+    this.sender,
+    this.receiver,
+    this.time,
     this.isRead = false,
     this.isSent = false,
   });
@@ -27,6 +29,6 @@ class Message {
 
   @override
   String toString() {
-    return 'Message{id: $id, content: $content, timestamp: $timestamp, isYou: $isYou, isRead: $isRead, isSent: $isSent}';
+    return 'Message{id: $id, content: $content, sender: $sender, receiver: $receiver, time: $time isRead: $isRead, isSent: $isSent}';
   }
 }

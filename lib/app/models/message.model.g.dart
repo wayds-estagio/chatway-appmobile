@@ -10,10 +10,9 @@ Message _$MessageFromJson(Map<String, dynamic> json) {
   return Message(
     id: json['id'] as String,
     content: json['content'] as String,
-    timestamp: json['timestamp'] == null
-        ? null
-        : DateTime.parse(json['timestamp'] as String),
-    isYou: json['isYou'] as bool,
+    sender: json['sender'] as String,
+    receiver: json['receiver'] as String,
+    time: json['time'] == null ? null : DateTime.parse(json['time'] as String),
     isRead: json['isRead'] as bool,
     isSent: json['isSent'] as bool,
   );
@@ -22,8 +21,9 @@ Message _$MessageFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$MessageToJson(Message instance) => <String, dynamic>{
       'id': instance.id,
       'content': instance.content,
-      'timestamp': instance.timestamp?.toIso8601String(),
-      'isYou': instance.isYou,
+      'sender': instance.sender,
+      'receiver': instance.receiver,
+      'time': instance.time?.toIso8601String(),
       'isRead': instance.isRead,
       'isSent': instance.isSent,
     };

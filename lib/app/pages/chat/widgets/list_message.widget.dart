@@ -34,8 +34,8 @@ class ListMessage extends StatelessWidget {
 
               return ItemMessage(
                 content: item.content,
-                timestamp: item.timestamp,
-                isYou: item.isYou,
+                timestamp: item.time,
+                isYou: "UserID usuario Test" == item.sender,
                 isRead: item.isRead,
                 isSent: item.isSent,
                 fontSize: 16.0,
