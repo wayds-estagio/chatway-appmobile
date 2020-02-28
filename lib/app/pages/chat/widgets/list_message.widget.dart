@@ -1,5 +1,4 @@
 import 'package:chatway/app/controllers/chat.controller.dart';
-import 'package:chatway/app/utils/const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
@@ -36,7 +35,7 @@ class ListMessage extends StatelessWidget {
               return ItemMessage(
                 content: item.content,
                 timestamp: item.time,
-                isYou: Consts.user.id == item.sender,
+                isYou: controller.user.id == item.sender,
                 isRead: item.isRead,
                 isSent: item.isSent,
                 fontSize: 16.0,

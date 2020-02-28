@@ -1,10 +1,10 @@
-import 'package:chatway/app/pages/home/home.page.dart';
 import 'package:chatway/app/utils/route_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'controllers/chat.controller.dart';
 import 'controllers/home.controller.dart';
+import 'pages/select/select.page.dart';
 import 'themes/light/light.theme.dart';
 
 class AppWidget extends StatelessWidget {
@@ -22,7 +22,7 @@ class AppWidget extends StatelessWidget {
       child: MaterialApp(
         title: 'ChatWay',
         theme: lightTheme(),
-        home: HomePage(),
+        home: SelectPage(),
         onGenerateRoute: RouteGenerator.generateRoute,
       ),
     );

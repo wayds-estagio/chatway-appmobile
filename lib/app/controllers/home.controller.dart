@@ -24,7 +24,7 @@ abstract class _HomeControllerBase with Store {
 
   @action
   fetchStore() async {
-    store = getStore().asObservable();
+    store = getStoreApi().asObservable();
   }
 
   Future<HomeStore> getStore() async {

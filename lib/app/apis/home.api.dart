@@ -9,15 +9,15 @@ class HomeApi {
       Dio dio = Dio();
 
       dio.options.baseUrl = "${Consts.baseURL}";
-      dio.options.connectTimeout = 3000;
-      dio.options.receiveTimeout = 3000;
+      dio.options.connectTimeout = 5000;
+      dio.options.receiveTimeout = 5000;
       dio.options.headers['content-Type'] = 'application/json';
 
       var response =
           await dio.get("/api/v1/fraseAjuda/5e565e46f2c90134cc10d0eb");
 
-      // print('>Home Api getHelp: Response status: ${response.statusCode}');
-      // print('>Home Api getHelp: Response body: ${response.data}');
+      print('> Home Api getHelp: Response status: ${response.statusCode}');
+      print('> Home Api getHelp: Response body: ${response.data}');
 
       if (response.statusCode == 200) {
         NeedHelp needHelp = NeedHelp.fromJson(response.data);

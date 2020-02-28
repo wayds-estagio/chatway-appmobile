@@ -1,6 +1,7 @@
 import 'package:chatway/app/apis/chat.api.dart';
 import 'package:chatway/app/models/chat.model.dart';
 import 'package:chatway/app/models/message.model.dart';
+import 'package:chatway/app/models/user.model.dart';
 import 'package:chatway/app/stores/chat.store.dart';
 import 'package:chatway/app/utils/api_response.dart';
 import 'package:chatway/app/utils/const.dart';
@@ -25,6 +26,10 @@ abstract class _ChatControllerBase with Store {
   bool isAttended = false;
   @observable
   Chat chat;
+  @observable
+  bool isAtendente = false;
+  @observable
+  User user;
 
   // *-----------------------------------------------------------------------------------
   @computed
@@ -52,7 +57,7 @@ abstract class _ChatControllerBase with Store {
   sendMessage(String textMessage) {
     final message = Message(
       content: textMessage,
-      sender: Consts.user.id,
+      sender: user.id,
       receiver: chat.id,
       time: DateTime.now(),
     );
@@ -72,6 +77,19 @@ abstract class _ChatControllerBase with Store {
 
   @action
   setInputMessage(String value) async => inputMessage = value;
+
+  @action
+  setIsAtendentes(bool value) async {
+    print("setAtendente $value");
+
+    if (isAtendente) {
+      user = Consts.user;
+    } else {
+      user = Consts.userAtendente;
+    }
+
+    return isAtendente = value;
+  }
 
   @action
   clearInputMessage() {
@@ -109,8 +127,7 @@ abstract class _ChatControllerBase with Store {
   }
 
   Future<void> createChat() async {
-    ApiResponse response =
-        await ChatApi.createChat(Consts.user.id, Consts.user.unidade);
+    ApiResponse response = await ChatApi.createChat(user.id, user.unidade);
 
     if (response.ok) {
       chat = response.result;
