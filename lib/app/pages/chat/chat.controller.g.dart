@@ -90,15 +90,23 @@ mixin _$ChatController on _ChatControllerBase, Store {
   final _$setHelpMessageAsyncAction = AsyncAction('setHelpMessage');
 
   @override
-  Future setHelpMessage(String textHelpMessage) {
+  Future setHelpMessage(String helpMessage) {
     return _$setHelpMessageAsyncAction
-        .run(() => super.setHelpMessage(textHelpMessage));
+        .run(() => super.setHelpMessage(helpMessage));
+  }
+
+  final _$sendHelpMessageAsyncAction = AsyncAction('sendHelpMessage');
+
+  @override
+  Future sendHelpMessage(String textHelpMessage) {
+    return _$sendHelpMessageAsyncAction
+        .run(() => super.sendHelpMessage(textHelpMessage));
   }
 
   final _$fetchAsyncAction = AsyncAction('fetch');
 
   @override
-  Future fetch() {
+  Future<void> fetch() {
     return _$fetchAsyncAction.run(() => super.fetch());
   }
 
@@ -113,10 +121,10 @@ mixin _$ChatController on _ChatControllerBase, Store {
       ActionController(name: '_ChatControllerBase');
 
   @override
-  dynamic sendMessagem(String textMessagem) {
+  dynamic sendMessagem(String textMessage) {
     final _$actionInfo = _$_ChatControllerBaseActionController.startAction();
     try {
-      return super.sendMessagem(textMessagem);
+      return super.sendMessagem(textMessage);
     } finally {
       _$_ChatControllerBaseActionController.endAction(_$actionInfo);
     }

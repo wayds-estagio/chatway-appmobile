@@ -20,6 +20,7 @@ abstract class _ChatControllerBase with Store {
   TextEditingController inputMessageController = TextEditingController();
   @observable
   String inputMessage = '';
+  String textHelpMessage;
 
   var user = User(
     id: "UserID usuario Test",
@@ -34,6 +35,7 @@ abstract class _ChatControllerBase with Store {
   );
 
   var chatServer = ChatServer(
+    id: "CHAT_ID",
     motorista: "Motorista Test",
     unidade: "Unidade Test",
     concluido: false,
@@ -49,18 +51,22 @@ abstract class _ChatControllerBase with Store {
 
   // *-----------------------------------------------------------------------------------
   @action
-  setHelpMessage(String textHelpMessage) async {
+  setHelpMessage(String helpMessage) async {
     await fetch();
+    textHelpMessage = helpMessage;
+  }
 
+  @action
+  sendHelpMessage(String textHelpMessage) async {
     if (textHelpMessage != "Outro") {
-      sendMessagem(textHelpMessage);
+      //sendMessagem(textHelpMessage);
     }
   }
 
   @action
-  sendMessagem(String textMessagem) {
+  sendMessagem(String textMessage) {
     final message = Message(
-      content: textMessagem,
+      content: textMessage,
       isYou: true,
       timestamp: DateTime.now(),
       isRead: false,
@@ -70,7 +76,7 @@ abstract class _ChatControllerBase with Store {
     print("> sendMessagem: ${chatServer.toString()}");
 
     store.value.addMessage(message);
-    connection.invoke("Send", args: [message, chatServer.id]);
+    connection.invoke("Send", args: [textMessage, chatServer.id]);
 
     clearInputMessage();
   }
@@ -82,7 +88,7 @@ abstract class _ChatControllerBase with Store {
   }
 
   @action
-  fetch() async {
+  Future<void> fetch() async {
     store = getStore().asObservable();
     await createSignalRConnection();
   }
@@ -96,38 +102,33 @@ abstract class _ChatControllerBase with Store {
     return store;
   }
 
-  Future<void> getChatId() async {
-    chatServer.datacriacao = DateTime.now();
-    await connection.invoke("GetIdChat", args: [chatServer]);
-  }
-
   Future<void> createSignalRConnection() async {
     connection =
         HubConnectionBuilder().withUrl("${Consts.baseURL}/ChatWay").build();
 
     await connection.start();
-    await getChatId();
+    connection.invoke("LinkChatToGroup", args: [chatServer.id]);
 
-    // !-------------------------------------------------------------------
-    connection.on("ReceiveChatId", (data) {
-      print("> ReceiveChatId ${data.toString()}");
-      chatServer.id = data.toString();
+    connection.on("ReceiveDebug", (data) {
+      print("> ReceiveDebug ${data.toString()}");
 
-      connection.invoke("AddId", args: [chatServer.id]);
+      final receiveMessage = Message(
+        content: "> ReceiveDebug ${data.toString()}",
+        timestamp: DateTime.now(),
+      );
+
+      store.value.addMessage(receiveMessage);
     });
 
     connection.on("Receive", (data) {
       print("> Receive ${data.toString()}");
 
       final receiveMessage = Message(
-        content: data.toString(),
-        isYou: false,
+        content: "${data.toString()}",
         timestamp: DateTime.now(),
-        isRead: false,
-        isSent: false,
       );
+
       store.value.addMessage(receiveMessage);
     });
-    // !-------------------------------------------------------------------
   }
 }

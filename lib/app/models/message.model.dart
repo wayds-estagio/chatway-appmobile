@@ -1,24 +1,23 @@
-import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'message.model.g.dart';
 
 @JsonSerializable()
 class Message {
-  final String id;
-  final String content;
-  final DateTime timestamp;
-  final bool isYou;
-  final bool isRead;
-  final bool isSent;
+  String id;
+  String content;
+  DateTime timestamp;
+  bool isYou;
+  bool isRead;
+  bool isSent;
 
   Message({
     this.id,
-    @required this.content,
-    @required this.timestamp,
-    @required this.isYou,
-    @required this.isRead,
-    @required this.isSent,
+    this.content,
+    this.timestamp,
+    this.isYou = false,
+    this.isRead = false,
+    this.isSent = false,
   });
 
   factory Message.fromJson(Map<String, dynamic> json) =>
