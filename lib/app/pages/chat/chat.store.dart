@@ -11,7 +11,8 @@ abstract class _ChatStoreBase with Store {
   @action
   addMessage(Message value) {
     //messages.insert(0, value);
-    messages.add(value);
+    //messages.add(value);
+    messages.insert(0, value);
     // listitems.sort((a, b) {
     //   return a.title.toLowerCase().compareTo(b.title.toLowerCase());
     // });

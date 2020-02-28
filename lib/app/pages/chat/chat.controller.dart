@@ -46,7 +46,7 @@ abstract class _ChatControllerBase with Store {
   List<Message> get listFiltered {
     if (store.value == null) return List<Message>();
 
-    return store.value.messages.reversed.toList();
+    return store.value.messages.toList();
   }
 
   // *-----------------------------------------------------------------------------------
