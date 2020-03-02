@@ -25,7 +25,13 @@ abstract class _ChatControllerBase with Store {
   @observable
   bool isAttended = false;
   @observable
-  Chat chat;
+  var chat = Chat(
+    atendente: "Atendente_01",
+    concluido: false,
+    id: "CHAT_ID",
+    motorista: "Motorista_01",
+    unidade: "Unidade_01",
+  );
   @observable
   bool isAtendente = false;
   @observable
@@ -62,8 +68,10 @@ abstract class _ChatControllerBase with Store {
       time: DateTime.now(),
     );
 
+    print(user.toString());
+
     store.value.addMessage(message);
-    connection.invoke("Send", args: [message, chat.id]);
+    connection.invoke("Send", args: [message, "chat.id"]);
 
     clearInputMessage();
   }
@@ -71,7 +79,7 @@ abstract class _ChatControllerBase with Store {
   @action
   Future<void> fetch() async {
     store = getStore().asObservable();
-    await createChat();
+    //await createChat();
     await createSignalRConnection();
   }
 
@@ -80,8 +88,6 @@ abstract class _ChatControllerBase with Store {
 
   @action
   setIsAtendentes(bool value) async {
-    print("setAtendente $value");
-
     if (isAtendente) {
       user = Consts.user;
     } else {

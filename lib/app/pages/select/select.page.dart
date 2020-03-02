@@ -1,5 +1,6 @@
 import 'package:chatway/app/controllers/chat.controller.dart';
 import 'package:chatway/app/pages/home/home.page.dart';
+import 'package:chatway/app/pages/home_atendente/home_atendente.page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
@@ -8,7 +9,6 @@ class SelectPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Provider.of<ChatController>(context);
-    bool _switchValue = false;
 
     return Scaffold(
       body: Container(
@@ -51,7 +51,7 @@ class SelectPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      "Atendente",
+                      "Motorista",
                       style: TextStyle(
                         fontSize: 18,
                         color: Colors.white,
@@ -60,26 +60,22 @@ class SelectPage extends StatelessWidget {
                     SizedBox(
                       width: 10,
                     ),
-                    Observer(
-                      builder: (_) {
-                        return Transform.scale(
-                          scale: 1.5,
-                          child: Switch(
-                            value: _switchValue,
-                            onChanged: (bool value) {
-                              print(value);
-                              _switchValue = value;
-                              controller.setIsAtendentes(!value);
-                            },
-                          ),
+                    Transform.scale(
+                      scale: 1.5,
+                      child: Observer(builder: (_) {
+                        return Switch(
+                          value: controller.isAtendente,
+                          onChanged: (bool value) {
+                            controller.setIsAtendentes(value);
+                          },
                         );
-                      },
+                      }),
                     ),
                     SizedBox(
                       width: 10,
                     ),
                     Text(
-                      "Motorista",
+                      "Atendente",
                       style: TextStyle(
                         fontSize: 18,
                         color: Colors.white,
@@ -94,10 +90,24 @@ class SelectPage extends StatelessWidget {
                   minWidth: 200.0,
                   child: RaisedButton(
                     onPressed: () {
-                      Navigator.pushReplacement(
+                      if (controller.isAtendente) {
+                        {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  HomeAtendentePage(),
+                            ),
+                          );
+                        }
+                      } else {
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (BuildContext context) => HomePage()));
+                            builder: (BuildContext context) => HomePage(),
+                          ),
+                        );
+                      }
                     },
                     color: Colors.white,
                     child: Text(

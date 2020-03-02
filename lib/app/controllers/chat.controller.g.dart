@@ -121,6 +121,40 @@ mixin _$ChatController on _ChatControllerBase, Store {
     }, _$chatAtom, name: '${_$chatAtom.name}_set');
   }
 
+  final _$isAtendenteAtom = Atom(name: '_ChatControllerBase.isAtendente');
+
+  @override
+  bool get isAtendente {
+    _$isAtendenteAtom.context.enforceReadPolicy(_$isAtendenteAtom);
+    _$isAtendenteAtom.reportObserved();
+    return super.isAtendente;
+  }
+
+  @override
+  set isAtendente(bool value) {
+    _$isAtendenteAtom.context.conditionallyRunInAction(() {
+      super.isAtendente = value;
+      _$isAtendenteAtom.reportChanged();
+    }, _$isAtendenteAtom, name: '${_$isAtendenteAtom.name}_set');
+  }
+
+  final _$userAtom = Atom(name: '_ChatControllerBase.user');
+
+  @override
+  User get user {
+    _$userAtom.context.enforceReadPolicy(_$userAtom);
+    _$userAtom.reportObserved();
+    return super.user;
+  }
+
+  @override
+  set user(User value) {
+    _$userAtom.context.conditionallyRunInAction(() {
+      super.user = value;
+      _$userAtom.reportChanged();
+    }, _$userAtom, name: '${_$userAtom.name}_set');
+  }
+
   final _$setHelpMessageAsyncAction = AsyncAction('setHelpMessage');
 
   @override
@@ -141,6 +175,13 @@ mixin _$ChatController on _ChatControllerBase, Store {
   @override
   Future setInputMessage(String value) {
     return _$setInputMessageAsyncAction.run(() => super.setInputMessage(value));
+  }
+
+  final _$setIsAtendentesAsyncAction = AsyncAction('setIsAtendentes');
+
+  @override
+  Future setIsAtendentes(bool value) {
+    return _$setIsAtendentesAsyncAction.run(() => super.setIsAtendentes(value));
   }
 
   final _$_ChatControllerBaseActionController =
