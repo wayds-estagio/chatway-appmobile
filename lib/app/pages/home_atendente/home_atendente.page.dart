@@ -1,8 +1,7 @@
+import 'package:chatway/app/pages/chats_attended/chats_attended.page.dart';
+import 'package:chatway/app/pages/chats_open/chats_open.page.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
-import 'widgets/list_chat.widget.dart';
-import 'widgets/list_open.widget.dart';
 
 class HomeAtendentePage extends StatefulWidget {
   @override
@@ -63,8 +62,8 @@ class _HomeAtendentePageState extends State<HomeAtendentePage>
         dragStartBehavior: DragStartBehavior.down,
         controller: _tabController,
         children: <Widget>[
-          ListChatWidget(),
-          ListOpenWidget(),
+          ChatsAttendedPage(tabKey: "key1"),
+          ChatsOpenPage(tabKey: "key2"),
         ],
       ),
     );

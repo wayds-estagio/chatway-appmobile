@@ -1,5 +1,4 @@
 import 'package:chatway/app/apis/home.api.dart';
-import 'package:chatway/app/models/help.model.dart';
 import 'package:chatway/app/stores/home.store.dart';
 import 'package:chatway/app/utils/api_response.dart';
 import 'package:mobx/mobx.dart';
@@ -24,7 +23,7 @@ abstract class _HomeControllerBase with Store {
 
   @action
   fetchStore() async {
-    store = getStore().asObservable();
+    store = getStoreApi().asObservable();
   }
 
   Future<HomeStore> getStore() async {
@@ -46,18 +45,18 @@ abstract class _HomeControllerBase with Store {
   Future<HomeStore> getStoreApi() async {
     //await Future.delayed(const Duration(seconds: 2));
 
-    NeedHelp list;
+    List<String> list;
     var store = HomeStore();
 
-    ApiResponse response = await HomeApi.getHelp();
+    ApiResponse response =
+        await HomeApi.getHelp(unidade: "5e5e52eba1a94923c47e710c");
 
     if (response.ok) {
       list = response.result;
-      store.needHelpList = list.precisoAjuda.asObservable();
+      store.needHelpList = list.asObservable();
 
       return store;
-    } else {
+    } else
       return null;
-    }
   }
 }

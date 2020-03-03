@@ -31,39 +31,44 @@ class ItemChatWidget extends StatelessWidget {
         overflow: TextOverflow.ellipsis,
         style: TextStyle(fontSize: 14),
       ),
-      leading: Stack(
-        alignment: Alignment.topCenter,
-        overflow: Overflow.visible,
-        children: <Widget>[
-          CircleAvatar(
-            backgroundColor: Theme.of(context).accentColor,
-            child: Text(
-              index,
-              style: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-          Positioned(
-            right: -10,
-            top: 20,
-            child: Container(
-              height: 28,
-              width: 28,
-              padding: EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-                shape: BoxShape.circle,
+      leading: Container(
+        width: 60,
+        height: 70,
+        child: Stack(
+          alignment: Alignment.topCenter,
+          overflow: Overflow.visible,
+          children: <Widget>[
+            CircleAvatar(
+              radius: 30.0,
+              backgroundColor: Theme.of(context).accentColor,
+              child: Text(
+                index,
+                style: TextStyle(
+                    color: Theme.of(context).primaryColor,
+                    fontWeight: FontWeight.bold),
               ),
-              child: Center(
-                child: Text(
-                  newMessages.toString(),
-                  style: TextStyle(color: Colors.white, fontSize: 14),
+            ),
+            Positioned(
+              right: -10,
+              top: 30,
+              child: Container(
+                height: 28,
+                width: 28,
+                padding: EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  shape: BoxShape.circle,
+                ),
+                child: Center(
+                  child: Text(
+                    newMessages.toString(),
+                    style: TextStyle(color: Colors.white, fontSize: 14),
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,

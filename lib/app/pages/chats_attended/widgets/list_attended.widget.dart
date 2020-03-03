@@ -1,11 +1,14 @@
+import 'package:chatway/app/shared/item_chat.widget.dart';
 import 'package:flutter/material.dart';
 
-import 'item_chat.widget.dart';
+class ListAttendedWidget extends StatelessWidget {
+  final String tabKey;
 
-class ListChatWidget extends StatelessWidget {
+  const ListAttendedWidget({Key key, this.tabKey}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      key: PageStorageKey(tabKey),
       shrinkWrap: true,
       physics: ClampingScrollPhysics(),
       itemCount: 5,

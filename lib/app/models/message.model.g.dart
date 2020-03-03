@@ -9,6 +9,7 @@ part of 'message.model.dart';
 Message _$MessageFromJson(Map<String, dynamic> json) {
   return Message(
     id: json['id'] as String,
+    type: json['type'] as String,
     content: json['content'] as String,
     sender: json['sender'] as String,
     receiver: json['receiver'] as String,
@@ -20,6 +21,7 @@ Message _$MessageFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$MessageToJson(Message instance) => <String, dynamic>{
       'id': instance.id,
+      'type': instance.type,
       'content': instance.content,
       'sender': instance.sender,
       'receiver': instance.receiver,

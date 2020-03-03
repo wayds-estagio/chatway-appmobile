@@ -5,6 +5,7 @@ part 'message.model.g.dart';
 @JsonSerializable()
 class Message {
   String id;
+  String type;
   String content;
   String sender;
   String receiver;
@@ -14,6 +15,7 @@ class Message {
 
   Message({
     this.id,
+    this.type,
     this.content,
     this.sender,
     this.receiver,
@@ -29,6 +31,6 @@ class Message {
 
   @override
   String toString() {
-    return 'Message{id: $id, content: $content, sender: $sender, receiver: $receiver, time: $time isRead: $isRead, isSent: $isSent}';
+    return 'Message{id: $id, type: $type, content: $content, sender: $sender, receiver: $receiver, time: $time isRead: $isRead, isSent: $isSent}';
   }
 }

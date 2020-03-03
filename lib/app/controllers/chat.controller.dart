@@ -25,13 +25,7 @@ abstract class _ChatControllerBase with Store {
   @observable
   bool isAttended = false;
   @observable
-  var chat = Chat(
-    atendente: "Atendente_01",
-    concluido: false,
-    id: "CHAT_ID",
-    motorista: "Motorista_01",
-    unidade: "Unidade_01",
-  );
+  Chat chat = Chat();
   @observable
   bool isAtendente = false;
   @observable
@@ -68,10 +62,8 @@ abstract class _ChatControllerBase with Store {
       time: DateTime.now(),
     );
 
-    print(user.toString());
-
     store.value.addMessage(message);
-    connection.invoke("Send", args: [message, "chat.id"]);
+    connection.invoke("Send", args: [message, chat.id]);
 
     clearInputMessage();
   }
@@ -79,7 +71,10 @@ abstract class _ChatControllerBase with Store {
   @action
   Future<void> fetch() async {
     store = getStore().asObservable();
-    //await createChat();
+    if (chat.id == null) {
+      print(">> Create Chat");
+      await createChat();
+    }
     await createSignalRConnection();
   }
 
@@ -93,7 +88,6 @@ abstract class _ChatControllerBase with Store {
     } else {
       user = Consts.userAtendente;
     }
-
     return isAtendente = value;
   }
 
@@ -123,20 +117,30 @@ abstract class _ChatControllerBase with Store {
       print("> ReceiveDebug ${data.toString()}");
     });
 
+    connection.on("ReceiveAttendance", (data) {
+      print("> ReceiveAttendance ${data.toString()}");
+      setIsAttended(true);
+    });
+
     connection.on("Receive", (data) {
+      print("> Receive ${data[0].toString()}");
       final receiveMessage = Message.fromJson(data[0]);
 
       store.value.addMessage(receiveMessage);
-
-      setIsAttended(true);
     });
   }
 
   Future<void> createChat() async {
-    ApiResponse response = await ChatApi.createChat(user.id, user.unidade);
+    ApiResponse response = await ChatApi.createChat(
+      motorista: user.nome,
+      motoristaId: user.id,
+      unidade: user.unidade,
+    );
 
     if (response.ok) {
       chat = response.result;
+
+      print("<< $chat");
     }
   }
 }
