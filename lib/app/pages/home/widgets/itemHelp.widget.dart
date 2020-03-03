@@ -12,7 +12,7 @@ class ItemHelp extends StatelessWidget {
       title: Container(
         child: Text(text,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodyText1),
+            style: Theme.of(context).textTheme.body2),
       ),
       onTap: () {
         // Navigator.of(context).pushNamed('/Chat');

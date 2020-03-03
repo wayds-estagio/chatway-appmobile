@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:signalr_client/signalr_client.dart';
 
+import '../utils/const.dart';
+
 part 'chat.controller.g.dart';
 
 class ChatController = _ChatControllerBase with _$ChatController;
@@ -29,7 +31,7 @@ abstract class _ChatControllerBase with Store {
   @observable
   bool isAtendente = false;
   @observable
-  User user;
+  User user = Consts.user;
 
   // *-----------------------------------------------------------------------------------
   @computed
@@ -112,6 +114,7 @@ abstract class _ChatControllerBase with Store {
 
     await connection.start();
     connection.invoke("LinkChatToGroup", args: [chat.id]);
+    connection.invoke("CreateNewChat");
 
     connection.on("ReceiveDebug", (data) {
       print("> ReceiveDebug ${data.toString()}");

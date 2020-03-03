@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ItemChatWidget extends StatelessWidget {
+  final String id;
   final String index;
   final String title;
   final String message;
@@ -9,6 +10,7 @@ class ItemChatWidget extends StatelessWidget {
 
   const ItemChatWidget({
     Key key,
+    @required this.id,
     @required this.title,
     @required this.message,
     @required this.time,
@@ -90,7 +92,14 @@ class ItemChatWidget extends StatelessWidget {
           ),
         ],
       ),
-      onTap: () {},
+      onTap: () {
+        print("Cliquei aqui");
+
+        Navigator.of(context).pushNamed(
+          '/chatAttended',
+          arguments: id,
+        );
+      },
     );
   }
 }

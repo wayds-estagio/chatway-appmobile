@@ -23,6 +23,7 @@ class ListOpenWidget extends StatelessWidget {
             var item = controller.listOutput[index];
 
             return ItemChatWidget(
+              id: item.id,
               index: index.toString(),
               message:
                   item.mensagens.isEmpty ? "" : item.mensagens.last.content,

@@ -5,6 +5,8 @@ import 'package:chatway/app/utils/api_response.dart';
 import 'package:chatway/app/utils/const.dart';
 import 'package:mobx/mobx.dart';
 import 'package:signalr_client/signalr_client.dart';
+
+import '../models/message.model.dart';
 part 'chats_open.controller.g.dart';
 
 class ChatsOpenController = _ChatsOpenControllerBase with _$ChatsOpenController;
@@ -46,8 +48,26 @@ abstract class _ChatsOpenControllerBase with Store {
       print("> ReceiveDebug ${data.toString()}");
     });
 
+    connection.on("ReceiveNewChat", (data) {
+      print("> ReceiveNewChat ${data.toString()}");
+
+      store = getChatPendente().asObservable();
+    });
+
     connection.on("ReceiveChatOpen", (data) {
-      print("> ReceiveChatOpen ${data[0].toString()}");
+      // print("> ReceiveChatOpen ${data[0].toString()}");
+      print("> ReceiveChatOpen");
+      final receiveMessage = Message.fromJson(data[0]);
+
+      var chat = store.value.chats
+          .firstWhere((chat) => chat.id == receiveMessage.receiver);
+      store.value.chats.remove(chat);
+
+      chat.mensagens.add(receiveMessage);
+      store.value.chats.insert(0, chat);
+
+      //store.value.chats = store.value.chats;
+
       //final receiveMessage = Message.fromJson(data[0]);
     });
   }

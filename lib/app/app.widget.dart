@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'controllers/chat.controller.dart';
+import 'controllers/chats_attended.controller.dart';
 import 'controllers/chats_open.controller.dart';
 import 'controllers/home.controller.dart';
 import 'pages/select/select.page.dart';
@@ -21,6 +22,9 @@ class AppWidget extends StatelessWidget {
         ),
         Provider<ChatsOpenController>(
           create: (_) => ChatsOpenController(),
+        ),
+        Provider<ChatsAttendedController>(
+          create: (_) => ChatsAttendedController(),
         ),
       ],
       child: MaterialApp(

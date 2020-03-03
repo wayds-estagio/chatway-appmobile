@@ -14,6 +14,7 @@ class ListAttendedWidget extends StatelessWidget {
       itemCount: 5,
       itemBuilder: (_, index) {
         return ItemChatWidget(
+          id: "1",
           index: index.toString(),
           message: "Mensagem automatica $index",
           newMessages: index,

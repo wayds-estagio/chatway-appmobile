@@ -1,4 +1,5 @@
 import 'package:chatway/app/pages/chat/chat.page.dart';
+import 'package:chatway/app/pages/chat_attended/chat_attended.page.dart';
 import 'package:chatway/app/pages/home/home.page.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +14,15 @@ class RouteGenerator {
         if (args is String) {
           return MaterialPageRoute(
             builder: (_) => ChatPage(
+              data: args,
+            ),
+          );
+        }
+        return _errorRoute();
+      case '/chatAttended':
+        if (args is String) {
+          return MaterialPageRoute(
+            builder: (_) => ChatAttendedPage(
               data: args,
             ),
           );
