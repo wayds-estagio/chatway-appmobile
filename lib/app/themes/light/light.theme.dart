@@ -9,15 +9,15 @@ ThemeData lightTheme() {
   return ThemeData(
     brightness: brightness,
     textTheme: TextTheme(
-      bodyText2: TextStyle(
+      body1: TextStyle(
         color: primaryColor,
         fontSize: 24,
       ),
-      bodyText1: TextStyle(
+      body2: TextStyle(
         color: primaryColor,
         fontSize: 18,
       ),
-      headline4: TextStyle(fontSize: 78),
+      display1: TextStyle(fontSize: 78),
       button: TextStyle(color: Colors.green),
     ),
     // tabBarTheme:

@@ -29,8 +29,6 @@ abstract class _ChatControllerBase with Store {
   @observable
   Chat chat = Chat();
   @observable
-  bool isAtendente = false;
-  @observable
   User user = Consts.user;
 
   // *-----------------------------------------------------------------------------------
@@ -84,16 +82,6 @@ abstract class _ChatControllerBase with Store {
   setInputMessage(String value) async => inputMessage = value;
 
   @action
-  setIsAtendentes(bool value) async {
-    if (isAtendente) {
-      user = Consts.user;
-    } else {
-      user = Consts.userAtendente;
-    }
-    return isAtendente = value;
-  }
-
-  @action
   clearInputMessage() {
     inputMessageController.clear();
     inputMessage = "";
@@ -122,7 +110,7 @@ abstract class _ChatControllerBase with Store {
 
     connection.on("ReceiveAttendance", (data) {
       print("> ReceiveAttendance ${data.toString()}");
-      setIsAttended(true);
+      setIsAttended(!isAttended);
     });
 
     connection.on("Receive", (data) {
