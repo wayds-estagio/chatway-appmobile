@@ -10,7 +10,6 @@ class ListAttendedWidget extends StatelessWidget {
     return ListView.builder(
       key: PageStorageKey(tabKey),
       shrinkWrap: true,
-      physics: ClampingScrollPhysics(),
       itemCount: 5,
       itemBuilder: (_, index) {
         return ItemChatWidget(

@@ -1,7 +1,7 @@
 import 'package:chatway/app/models/user.model.dart';
 
 class Consts {
-  static String baseURL = 'http://192.168.1.250:5000';
+  static String baseURL = 'http://192.168.1.6:5000';
 
   static final user = User(
     id: "5e5e530aa1a94923c47e710d",

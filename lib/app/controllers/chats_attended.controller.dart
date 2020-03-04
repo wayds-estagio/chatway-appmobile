@@ -52,7 +52,7 @@ abstract class _ChatsAttendedControllerBase with Store {
   sendMessage(String textMessage, String chatId) {
     final message = Message(
       content: textMessage,
-      sender: "asdas",
+      sender: Consts.userAtendente.id,
       receiver: chatId,
       time: DateTime.now(),
     );
@@ -77,13 +77,13 @@ abstract class _ChatsAttendedControllerBase with Store {
       print("> ReceiveDebug ${data.toString()}");
     });
 
-    connection.on("ReceiveNewChat", (data) {
+    connection.on("ReceiveNewChatAttended", (data) {
       print("> ReceiveNewChat ${data.toString()}");
 
       store = getChatAtendidos().asObservable();
     });
 
-    connection.on("ReceiveChatOpen", (data) {
+    connection.on("ReceiveChatOpenAttended", (data) {
       // print("> ReceiveChatOpen ${data[0].toString()}");
       print("> ReceiveChatOpen");
       final receiveMessage = Message.fromJson(data[0]);

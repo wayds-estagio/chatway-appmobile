@@ -1,8 +1,9 @@
+import 'package:chatway/app/controllers/chats_open.controller.dart';
+import 'package:chatway/app/utils/const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
-import '../../../controllers/chats_attended.controller.dart';
 import 'item_message.widget.dart';
 
 class ListMessage extends StatelessWidget {
@@ -11,7 +12,7 @@ class ListMessage extends StatelessWidget {
   const ListMessage({Key key, this.chatId}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final controller = Provider.of<ChatsAttendedController>(context);
+    final controller = Provider.of<ChatsOpenController>(context);
 
     return Flexible(
       flex: 1,
@@ -41,7 +42,7 @@ class ListMessage extends StatelessWidget {
               return ItemMessage(
                 content: item.content,
                 timestamp: item.time,
-                isYou: false,
+                isYou: Consts.userAtendente.id == item.sender,
                 isRead: item.isRead,
                 isSent: item.isSent,
                 fontSize: 16.0,

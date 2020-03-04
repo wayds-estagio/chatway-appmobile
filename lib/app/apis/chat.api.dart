@@ -87,7 +87,7 @@ class ChatApi {
       dio.options.headers['content-Type'] = 'application/json';
 
       var response =
-          await dio.get("/api/v1/chat/pendentes/5e5e52eba1a94923c47e710c");
+          await dio.get("/api/v1/chat/atendidos/5e5e52eba1a94923c47e710c");
 
       print(
           '> ChatApi getChatPendente: Response status: ${response.statusCode}');

@@ -63,7 +63,7 @@ abstract class _ChatsOpenControllerBase with Store {
           .firstWhere((chat) => chat.id == receiveMessage.receiver);
       store.value.chats.remove(chat);
 
-      chat.mensagens.add(receiveMessage);
+      chat.mensagens.insert(0, receiveMessage);
       store.value.chats.insert(0, chat);
 
       //store.value.chats = store.value.chats;
