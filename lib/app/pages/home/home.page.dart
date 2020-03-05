@@ -53,7 +53,11 @@ class HomePage extends StatelessWidget {
   Widget headerExpandableCard(BuildContext context) {
     return Text(
       "Preciso de ajuda",
-      style: Theme.of(context).textTheme.body2,
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+        color: Theme.of(context).primaryColor,
+        fontSize: 20,
+      ),
     );
   }
 }

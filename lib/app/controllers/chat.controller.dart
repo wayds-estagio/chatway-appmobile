@@ -71,11 +71,9 @@ abstract class _ChatControllerBase with Store {
   @action
   Future<void> fetch() async {
     store = getStore().asObservable();
-    if (chat.id == null) {
-      print(">> Create Chat");
-      await createChat();
-    }
+    await createChat();
     await createSignalRConnection();
+    setIsAttended(false);
   }
 
   @action
@@ -96,6 +94,10 @@ abstract class _ChatControllerBase with Store {
     return store;
   }
 
+  Future<void> removeSignalRConnection() async {
+    await connection.stop();
+  }
+
   Future<void> createSignalRConnection() async {
     connection =
         HubConnectionBuilder().withUrl("${Consts.baseURL}/ChatWay").build();
@@ -109,7 +111,8 @@ abstract class _ChatControllerBase with Store {
     });
 
     connection.on("ReceiveAttendance", (data) {
-      print("> ReceiveAttendance ${data.toString()}");
+      print("> ReceiveAttendance");
+      var atendente = User.fromJson(data[0]);
       setIsAttended(!isAttended);
     });
 
@@ -119,6 +122,8 @@ abstract class _ChatControllerBase with Store {
 
       store.value.addMessage(receiveMessage);
     });
+
+    connection.onclose((error) => print("> Connection Closed"));
   }
 
   Future<void> createChat() async {
@@ -130,8 +135,6 @@ abstract class _ChatControllerBase with Store {
 
     if (response.ok) {
       chat = response.result;
-
-      print("<< $chat");
     }
   }
 }

@@ -1,4 +1,6 @@
+import 'package:chatway/app/controllers/chat.controller.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AppBarChat extends StatelessWidget with PreferredSizeWidget {
   @override
@@ -6,7 +8,16 @@ class AppBarChat extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Provider.of<ChatController>(context);
     return AppBar(
+      leading: IconButton(
+        icon: Icon(Icons.arrow_back),
+        onPressed: () async {
+          await controller.removeSignalRConnection();
+
+          Navigator.of(context).pop();
+        },
+      ),
       title: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
