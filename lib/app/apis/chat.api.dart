@@ -14,8 +14,8 @@ class ChatApi {
       Dio dio = Dio();
 
       dio.options.baseUrl = "${Consts.baseURL}";
-      dio.options.connectTimeout = 3000;
-      dio.options.receiveTimeout = 3000;
+      dio.options.connectTimeout = 5000;
+      dio.options.receiveTimeout = 5000;
       dio.options.headers['content-Type'] = 'application/json';
 
       Map params = {

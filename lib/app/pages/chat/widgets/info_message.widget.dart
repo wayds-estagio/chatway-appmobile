@@ -25,8 +25,8 @@ class _InfoMessageState extends State<InfoMessage>
 
   ///Setting up the animation
   void prepareAnimations() {
-    expandController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    expandController = AnimationController(
+        vsync: this, duration: Duration(milliseconds: 5000));
     animation = CurvedAnimation(
       parent: expandController,
       curve: Curves.fastOutSlowIn,

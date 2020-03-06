@@ -104,15 +104,30 @@ abstract class _ChatControllerBase with Store {
 
     await connection.start();
     connection.invoke("LinkChatToGroup", args: [chat.id]);
-    connection.invoke("CreateNewChat");
+    Chat newChat = Chat(
+      atendente: chat.atendente,
+      atendenteId: chat.atendenteId,
+      caminhoImage: "",
+      concluido: false,
+      datacriacao: DateTime.parse("2020-02-28T11:59:44.975Z"),
+      id: chat.id,
+      mensagens: List<Message>(),
+      motorista: chat.motorista,
+      motoristaId: chat.motoristaId,
+      unidade: chat.unidade,
+    );
+    connection.invoke("CreateNewChat", args: [newChat]);
 
     connection.on("ReceiveDebug", (data) {
       print("> ReceiveDebug ${data.toString()}");
     });
 
-    connection.on("ReceiveAttendance", (data) {
-      print("> ReceiveAttendance");
+    connection.on("ReceiveAttendant", (data) {
+      print("> ReceiveAttendant");
       var atendente = User.fromJson(data[0]);
+
+      chat.atendente = atendente.nome;
+      chat.atendenteId = atendente.id;
       setIsAttended(!isAttended);
     });
 
@@ -135,6 +150,8 @@ abstract class _ChatControllerBase with Store {
 
     if (response.ok) {
       chat = response.result;
+
+      print("CREATE CHAT: " + chat.toString());
     }
   }
 }
